@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+
+    <title>Lista korisnika</title>
+</head>
+<script src="jquery-3.6.0.js"></script>
+<script>
+    $(function (){
+         let settings = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/korisnik?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            $('body').append('<table>' + '<thead>' +'<tr>' + '<th>ID</th>'+ '<th>Ime i prezime</th>' + '<th>E-mail</th>' + '<th>Telefon</th>' + '<th>Lokaciju</th>' + '<th>Ulogu</th>'+ '<th>Broj dogadjaja</th>'+ '<th>Broj rezervisanih ulaznica</th>'+'<th>Broj kupljenih ulaznica</th>' + '<th>Broj otkazanih ulaznica</th>'+'<th>Akcije</th>'+'</tr>' + '</thead>' + '<tbody>'+ '</tbody>'+'</table>')
+            response.forEach((element, index) =>{
+                $('tbody').append('<tr>' +'<td>' + element.id + '</td>' +  '<td>' + element.imePrezime + '</td>' +  '<td>' + element.email +  '</td>'+'<td>' + element.telefon +  '</td>'+ '<td>'+'</td>'+'<td>' + element.uloga.naziv +  '</td>'+'</tr>')
+
+                console.log(i)
+            })
+            console.log(i)
+
+        });
+
+    })
+</script>
+<style>
+    body{
+        margin: 0;
+    }
+a{
+    text-decoration: none;
+    color: white;
+    padding-left: 10px;
+}
+a:hover{
+    color: red;
+}
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: black;
+    height: 80px;
+    color: red;
+    width: 100%;
+}
+table,td,td, th{
+    margin:auto;
+    border:solid 2px #00f;
+    border-collapse: collapse;
+
+}
+    th, td {
+        text-align:center;
+        height:3em;
+        vertical-align: center;
+        padding:0 3em;
+    }
+    td:last-of-type{
+    }
+</style>
+<body>
+<h1>Lista korisnika</h1>
+<header>
+    <br>
+</header>
+</body>
+</html>
