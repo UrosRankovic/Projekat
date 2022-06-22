@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+    <title>O registrovanom korisniku</title>
+    <link rel="stylesheet" href="stilovi.css">
+<script src="jquery-3.6.0.js"></script>
+</head>
+<body>
+<div id="container">
+</div>
+<script>
+    $(function(){
+        let settings = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/uloga?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            response.forEach((element,index)=>{
+                if (element.id===3) {
+                    $('#container').append('<div id="divform">' + '</div>')
+                    $('#divform').append('<h1 style="text-transform: uppercase">' +element.naziv + '</h1>')
+                    $('#divform').append('<section>'+ '</section>')
+                    $('section').append(element.opis)
+                }
+            })
+
+
+
+            })
+
+    });
+</script>
+</body>
+</html>

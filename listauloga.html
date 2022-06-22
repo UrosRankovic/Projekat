@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+
+    <title>Lista uloga</title>
+</head>
+<script src="jquery-3.6.0.js"></script>
+<script>
+    $(function (){
+        let lista_korisnika = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/korisnik?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        };
+        let adm = 0;
+        let blag = 0;
+        let regkor = 0;
+        let blok = 0;
+        $.ajax(lista_korisnika).done(function (response) {
+            response.forEach((element, index)=>{
+                if(element.uloga.id === 1) {
+                    adm++;
+                }
+
+                else if(element.uloga.id === 2) {
+
+                    blag++;
+                }
+                else if(element.uloga.id === 3) {
+
+                    regkor++;
+                }
+                else if(element.uloga.id === 4) {
+
+                    blok++;
+                }
+            })
+
+            $('table>tbody>tr:first-of-type>td:last-of-type').append(adm)
+            $('table>tbody>tr:nth-of-type(2)>td:last-of-type').append(blag)
+            $('table>tbody>tr:nth-of-type(3)>td:last-of-type').append(regkor)
+            $('table>tbody>tr:nth-of-type(4)>td:last-of-type').append(blok)
+
+
+
+        });
+        let settings = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/uloga?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            $('body').append('<table>' + '<thead>' +'<tr>' + '<th>ID</th>'+ '<th>Naziv</th>' + '<th>Opis</th>' + '<th>Broj korisnika</th>' + '</tr>' + '</thead>' + '<tbody>'+ '</tbody>'+'</table>')
+            response.forEach((element, index) =>{
+                $('tbody').append('<tr>' +'<td>' + element.id + '</td>' +  '<td>' + element.naziv + '</td>' +  '<td>' + element.opis +  '</td>'+ '<td>' +  '</td>'+'</tr>')
+
+            })
+        });
+
+    })
+</script>
+<style>
+    a{
+        text-decoration: none;
+        color: black;
+        padding-left: 10px;
+    }
+    a:hover{
+        color: red;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        background-color: black;
+        height: 80px;
+        color: red;
+        width: 100%;
+    }
+    table,th,tr,td{
+        border: solid 2px black;
+        border-collapse: collapse;
+        text-align: center;
+        width: 1500px;
+        padding: 0;
+        margin: 0;
+    }
+    th{
+        background-color: #333;
+        color: white;
+    }
+    td{
+        background-color: lightgrey;
+        color: black;
+    }
+    table{
+        margin-left: 7px;
+        margin-bottom: 10px;
+    }
+    main{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    td{
+        padding: 2px 0;
+    }
+    th{
+        padding: 10px 0;
+    }
+</style>
+<body>
+<h1>Lista uloga</h1>
+
+<header>
+    <br>
+</header>
+</body>
+</html>

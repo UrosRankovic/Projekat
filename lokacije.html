@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+    <title>Lokacije</title>
+    <link rel="stylesheet" href="stilovi.css">
+<script src="jquery-3.6.0.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="divform">
+        <form id="forma" action="https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/register" method="post">
+            <label id="label">Lokacije</label><br>
+            <label>Naziv <span>*</span> <br>
+                <input type="text" name="naziv" placeholder="Ovde uneti naziv" id="naziv" required >
+            </label>
+            <div id="testnaziv" class="inputmessages" hidden></div>
+            <label>Adresa <span>*</span><br>
+                <input type="text" name="adresa" placeholder="Ovde uneti adresu" id="adresa" required>
+            </label>
+            <div id="testadresa" class="inputmessages" hidden></div>
+            <label>Grad <span>*</span><br>
+                <input type="text" name="grad" placeholder="Ovde uneti grad" id="grad">
+            </label>
+            <div id="testgrad" class="inputmessages" hidden></div>
+            <label>Opis<br>
+                <textarea id="opis" name="opis"></textarea>
+            </label>
+            <div id="testopis" class="inputmessages" hidden></div>
+            <label>Radno vreme<br>
+                <select name="dan" id="ponedeljak" class="dan">
+                    <option value="1" selected>Ponedeljak</option>
+                    <option value="2">Utorak</option>
+                    <option value="3">Sreda</option>
+                    <option value="4">Cetvrtak</option>
+                    <option value="5">Petak</option>
+                    <option value="6">Subota</option>
+                    <option value="7">Nedelja</option>
+                </select>
+            </label>
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="utorak" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2" selected>Utorak</option>
+                <option value="3">Sreda</option>
+                <option value="4">Cetvrtak</option>
+                <option value="5">Petak</option>
+                <option value="6">Subota</option>
+                <option value="7">Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="sreda" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2">Utorak</option>
+                <option value="3" selected>Sreda</option>
+                <option value="4">Cetvrtak</option>
+                <option value="5">Petak</option>
+                <option value="6">Subota</option>
+                <option value="7">Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="cetvrtak" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2">Utorak</option>
+                <option value="3">Sreda</option>
+                <option value="4" selected>Cetvrtak</option>
+                <option value="5">Petak</option>
+                <option value="6">Subota</option>
+                <option value="7">Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="petak" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2">Utorak</option>
+                <option value="3">Sreda</option>
+                <option value="4">Cetvrtak</option>
+                <option value="5" selected>Petak</option>
+                <option value="6">Subota</option>
+                <option value="7">Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="subota" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2">Utorak</option>
+                <option value="3">Sreda</option>
+                <option value="4">Cetvrtak</option>
+                <option value="5">Petak</option>
+                <option value="6" selected>Subota</option>
+                <option value="7">Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+
+            <select name="dan" id="nedelja" class="dan">
+                <option value="1">Ponedeljak</option>
+                <option value="2">Utorak</option>
+                <option value="3">Sreda</option>
+                <option value="4">Cetvrtak</option>
+                <option value="5">Petak</option>
+                <option value="6">Subota</option>
+                <option value="7" selected>Nedelja</option>
+            </select>
+
+
+            <input type="number" class="vreme">
+            <input type="number" class="vreme">
+
+
+            <input type="number" class="vreme" disabled>
+            <input type="number" class="vreme" disabled>
+            <button type="submit">Kreiraj lokaciju</button>
+            <div id="greska" hidden></div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+
+        $('#forma').on('submit', function (e){
+            e.preventDefault();
+            let settings = {
+                "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/lokacija",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Accept": "application/json"
+                },
+                "data": {
+                    "name": $('#naziv').val(),
+                    "address": $('#adresa').val(),
+                    "city": $('#grad').val(),
+                    "description": $('#opis').val()
+                }
+        //             "workingHours": "[{
+        //     "dan":1,
+        //     "od":540,
+        //     "do":620
+        //     }
+        // ]",
+        //     "apitoken": $('meta[name="token"]').attr('content')
+        // }
+        };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+
+
+        })
+    });
+</script>
+</body>
+</html>
+<style>
+    .dan{
+        width: 36%;
+    }
+    .vreme{
+        text-align: center;
+        width: 15%;
+    }
+</style>

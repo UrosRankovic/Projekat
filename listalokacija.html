@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+
+    <title>Lista lokacija</title>
+</head>
+<script src="jquery-3.6.0.js"></script>
+<script>
+    $(function (){
+         let settings = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/lokacija?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            $('body').append('<table>' + '<thead>' +'<tr>' + '<th>ID</th>'+ '<th>Naziv Lokacije</th>' + '<th>Grad</th>'
+                + '<th>Adresa</th>' + '<th>Opis</th>'+ '<th>Radno vreme</th>'+
+                '<th>Ukupno blagajnika</th>'+'<th>Ukupno dogadjaja</th>' +
+                '<th>Akcije</th>'+'</tr>' + '</thead>' + '<tbody>'+ '</tbody>'+'</table>')
+            response.forEach((element, index) => {
+                element.radnoVreme.forEach((test, index) => {
+
+
+                    // $('tbody>tr>td:nth-of-type(6)').append(test.dan)
+
+                })
+                $('tbody').append('<tr>' + '<td>' + element.id + '</td>' + '<td>' + element.naziv + '</td>' +
+                    '<td>' + element.grad + '</td>' + '<td>' + element.adresa + '</td>' + '<td>' + element.opis + '</td>'
+                    + '<td class="radnovreme">' + '</td>'
+                    + '<td>' + element.blagajnici.length + '</td>' + '<td>' + element.dogadjaji.length + '</td>'
+                    + '<td>'+ '<button class="izmeni" data-locationid="' + element.id + '" data-naziv="' + element.naziv + '" data-adresa="' + element.adresa
+                    +'" data-grad="' + element.grad + '" data-opis="' + element.opis +'"' +'>'+
+                    'Izmeni'+'</button>'+'<button class="obrisi">'+ 'Obrisi'+'</button>' + '</td>'
+                    +'</tr>')
+
+
+            } )
+            $('.izmeni').on('click', function (e){
+                localStorage.setItem('locationid', $(this).attr('data-locationid'))
+                localStorage.setItem('locationname', $(this).attr('data-naziv'))
+                localStorage.setItem('address', $(this).attr('data-adresa'))
+                localStorage.setItem('city', $(this).attr('data-grad'))
+                localStorage.setItem('locationdescription', $(this).attr('data-opis'))
+                window.location = 'izmenalokacije.html'
+
+            })
+            $('.obrisi').on('click', function (e){
+                let form = new FormData();
+                let settings = {
+                    "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/lokacija/?apitoken=" + $('meta[name="token"]').attr('content'),
+                    "method": "DELETE",
+                    "timeout": 0,
+                    "headers": {
+                        "Accept": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    "processData": false,
+                    "mimeType": "multipart/form-data",
+                    "contentType": false,
+                    "data": form
+                };
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });
+            })
+
+        });
+
+    })
+</script>
+<style>
+    a{
+        text-decoration: none;
+        color: black;
+        padding-left: 10px;
+    }
+    a:hover{
+        color: red;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        background-color: black;
+        height: 80px;
+        color: red;
+        width: 100%;
+    }
+    table,th,tr,td{
+        border: solid 2px black;
+        border-collapse: collapse;
+        text-align: center;
+        width: 1500px;
+        padding: 0;
+        margin: 0;
+    }
+    th{
+        background-color: #333;
+        color: white;
+    }
+    td{
+        background-color: lightgrey;
+        color: black;
+    }
+    table{
+        margin-left: 7px;
+        margin-bottom: 10px;
+    }
+    main{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .izmeni, .obrisi{
+        border:none;
+        background-color: lightgrey;
+        padding: 1px;
+        margin-left: 3px;
+    }
+    td{
+        padding: 2px 0;
+    }
+    .izmeni:hover, .obrisi:hover{
+        color: red;
+    }
+    th{
+        padding: 10px 0;
+    }
+</style>
+<body>
+<h1>Lista Lokacija</h1>
+<header>
+    <br>
+</header>
+</body>
+</html>

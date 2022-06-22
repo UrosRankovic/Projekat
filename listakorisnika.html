@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="token" content="YqXGntqc0XE5p1BdiOwucapAfuWvhAuuCpBEeFziLz68CX4Rrazjv6znUxcxU0TtiVWiF27SdBYGVuOGVDEtLuMvAb">
+
+    <title>Lista korisnika</title>
+</head>
+<script src="jquery-3.6.0.js"></script>
+<script>
+    $(function (){
+
+         let settings = {
+            "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/korisnik?apitoken=" + $('meta[name="token"]').attr('content'),
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+             'success':function (response){
+                console.log(response)
+                 $('#table').append('<table>' + '<thead>' +'<tr>' + '<th>ID</th>'+ '<th>Ime i prezime</th>' + '<th>E-mail</th>'
+                     + '<th>Telefon</th>' + '<th>Lokaciju</th>' + '<th>Ulogu</th>'+ '<th>Broj dogadjaja</th>'+
+                     '<th>Broj rezervisanih ulaznica</th>'+'<th>Broj kupljenih ulaznica</th>' +
+                     '<th>Broj otkazanih ulaznica</th>'+'<th>Akcije</th>'+'</tr>' + '</thead>' + '<tbody>'+ '</tbody>'+'</table>')
+                 response.forEach((element, index) =>{
+                     $('tbody').append('<tr>' +'<td>' + element.id + '</td>' +  '<td>' + element.imePrezime + '</td>' +
+                         '<td>' + element.email +  '</td>'+'<td>' + element.telefon +  '</td>'+ '<td>'+'</td>'+'<td>' + '<a href="' +element.uloga.naziv + '.' + 'html' +'">'
+                         + element.uloga.naziv +  '</td>'+'<td></td>' +'<td></td>'+'<td></td>'+'<td></td>'+'<td>'+
+                         '<button class="izmeni" data-id="' + element.id + '" data-imeiprezime="' + element.imePrezime + '" data-email="' + element.email
+                         +'" data-telefon="' + element.telefon + '" data-uloganaziv="' + element.uloga.id +'"' +'>'
+                         + 'Izmeni'+'</button>'+'<button class="obrisi" data-id="' + element.id + '" data-imeiprezime="'
+                         + element.imePrezime + '" data-email="' + element.email +
+                         '" data-telefon="' + element.telefon + '" data-uloganaziv="' + element.uloga.id +'"' + '>' + 'Obrisi'+'</button>'+'</td>'+'</tr>')
+
+                 })
+                 $('.izmeni').on('click', function (e){
+                     localStorage.setItem('userid', $(this).attr('data-id'))
+                     localStorage.setItem('userName', $(this).attr('data-imeiprezime'))
+                     localStorage.setItem('useremail', $(this).attr('data-email'))
+                     localStorage.setItem('userphone', $(this).attr('data-telefon'))
+                     localStorage.setItem('userroleid', $(this).attr('data-uloganaziv'))
+                     window.location = 'korisnikid.html'
+                 })
+                 $('.obrisi').on('click', function (e){
+                     let form = new FormData();
+                     // form.append("name", $(this).attr('data-imeiprezime'));
+                     // form.append("email", $(this).attr('data-email'));
+                     // form.append("phone", $(this).attr('data-telefon'));
+                     // form.append("id", $(this).attr('data-id'));
+                     // form.append("apitoken", $('meta[name="token"]').attr('content'));
+                     let settings2 = {
+                         "url": "https://vsis.mef.edu.rs/projekat/ulaznice/public_html/api/korisnik/?apitoken=" + $('meta[name="token"]').attr('content'),
+                         "method": "DELETE",
+                         "timeout": 0,
+                         "headers": {
+                             "Accept": "application/json",
+                             "Authorization": "Bearer " + localStorage.getItem("token")
+                         },
+                         "processData": false,
+                         "mimeType": "multipart/form-data",
+                         "contentType": false,
+                         "data": form,
+                         "dataType": "json"
+                     };
+
+                     $.ajax(settings2).done(function (response) {
+                         console.log(response);
+                     });
+                 })
+             },
+             'error': function (response){
+                console.log(response)
+             }
+        };
+
+        $.ajax(settings)
+    })
+</script>
+<style>
+
+a{
+    text-decoration: none;
+    color: black;
+    padding-left: 10px;
+}
+a:hover{
+    color: red;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: black;
+    height: 80px;
+    color: red;
+    width: 100%;
+}
+    table,th,tr,td{
+        border: solid 2px black;
+        border-collapse: collapse;
+        text-align: center;
+        width: 1500px;
+        padding: 0;
+        margin: 0;
+    }
+    th{
+        background-color: #333;
+        color: white;
+    }
+    td{
+        background-color: lightgrey;
+        color: black;
+    }
+    table{
+        margin-left: 7px;
+        margin-bottom: 10px;
+    }
+    main{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .izmeni, .obrisi{
+        border:none;
+        background-color: lightgrey;
+        padding: 1px;
+        margin-left: 3px;
+    }
+    td{
+        padding: 2px 0;
+    }
+    .izmeni:hover, .obrisi:hover{
+        color: red;
+    }
+
+
+</style>
+<body>
+<h1>Lista korisnika</h1>
+<header>
+    <br>
+</header>
+<div id="table"></div>
+</body>
+</html>
